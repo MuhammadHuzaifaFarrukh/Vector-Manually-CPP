@@ -35,23 +35,23 @@ public:
             arr[i] = val;
         }
     }
-    
-    Vector(initializer_list<T> list) 
+
+    Vector(initializer_list<T> list)
     {
         SIZE = list.size();
-        
-        if(SIZE > 0)
+
+        if (SIZE > 0)
         {
-            CAP = SIZE;            
+            CAP = SIZE;
         }
         else
         {
             CAP = 1;
         }
         arr = new T[CAP];
-        
+
         int i = 0;
-        for (const T& item : list) 
+        for (const T &item : list)
         {
             arr[i] = item;
             i++;
@@ -214,7 +214,7 @@ public:
         return *this;
     }
 
-    Vector(Vector &&other) noexcept 
+    Vector(Vector &&other) noexcept
     {
         SIZE = other.SIZE;
         CAP = other.CAP;
@@ -225,9 +225,9 @@ public:
         other.CAP = 0;
     }
 
-    Vector &operator=(Vector &&other) noexcept 
+    Vector &operator=(Vector &&other) noexcept
     {
-        if (this != &other) 
+        if (this != &other)
         {
             delete[] arr;
 
@@ -296,6 +296,76 @@ public:
     bool operator!=(const Vector &other)
     {
         return !(*this == other);
+    }
+
+    void selectionSort()
+    {
+        for (int i = 0; i < SIZE - 1; i++)
+        {
+            int minIdx = i;
+            for (int j = i + 1; j < SIZE; j++)
+            {
+                if (arr[j] < arr[minIdx])
+                {
+                    minIdx = j;
+                }
+            }
+            if (minIdx != i)
+            {
+                std::swap(arr[i], arr[minIdx]);
+            }
+        }
+    }
+
+    int linearSearch(T target)
+    {
+        for (int i = 0; i < SIZE; i++)
+        {
+            if (arr[i] == target)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    bool is_sorted() const
+    {
+        for (int i = 0; i < SIZE - 1; i++)
+        {
+            if (arr[i] > arr[i + 1])
+                return false;
+        }
+        return true;
+    }
+
+    int binarySearch(T target)
+    {
+        if (!is_sorted())
+        {
+            throw runtime_error("Binary Search requires a sorted vector! Run selectionSort() first.");
+        }
+        int low = 0;
+        int high = SIZE - 1;
+
+        while (low <= high)
+        {
+            int mid = low + (high - low) / 2;
+
+            if (arr[mid] == target)
+            {
+                return mid;
+            }
+            if (arr[mid] < target)
+            {
+                low = mid + 1;
+            }
+            else
+            {
+                high = mid - 1;
+            }
+        }
+        return -1;
     }
 
     ~Vector()
@@ -514,10 +584,10 @@ public:
         }
 
         SIZE += n;
-        return Iterator(arr+ind , arr , arr+SIZE);
+        return Iterator(arr + ind, arr, arr + SIZE);
     }
 
-    //Integer based (single element) :
+    // Integer based (single element) :
     void erase(int ind)
     {
         if (ind < 0 || ind >= SIZE)
@@ -532,32 +602,32 @@ public:
         SIZE--;
     }
 
-    //Iterator based (single element) :
-    Iterator erase(Iterator i) 
+    // Iterator based (single element) :
+    Iterator erase(Iterator i)
     {
         int ind = i - begin();
         erase(ind);
         return Iterator(arr + ind, arr, arr + SIZE);
     }
 
-    //Iterator based (range) :
-    Iterator erase(Iterator first, Iterator last) 
+    // Iterator based (range) :
+    Iterator erase(Iterator first, Iterator last)
     {
         int start_ind = first - begin();
         int nums = last - first;
-        
-        if (nums <= 0) 
+
+        if (nums <= 0)
         {
             return first;
         }
 
-        for (int i = start_ind; i < SIZE - nums; i++) 
+        for (int i = start_ind; i < SIZE - nums; i++)
         {
             arr[i] = arr[i + nums];
         }
 
         SIZE -= nums;
-        
+
         return Iterator(arr + start_ind, arr, arr + SIZE);
     }
 };
