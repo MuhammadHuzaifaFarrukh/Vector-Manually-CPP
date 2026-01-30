@@ -27,6 +27,13 @@ The class uses standard C++ exceptions to handle edge cases:
 ### Memory Management
 The class manages its own heap memory using `new[]` and `delete[]`. It includes a `shrinktofit()` method to reduce memory usage to the current size and a `reserve()` method to prevent unnecessary reallocations.
 
+
+### How to Compile and Run:
+* Run this by command normally using `g++ file_name.cpp -o my_program` as done here in the Basic Example of "Vector.hpp" file (Not a good practice).
+* If you have separated files for each class i.e separate classes for List , Node , Iterator and then include all the necessary headers in your file then you need to run by including all the .cpp files like below example:
+  `g++ file_name.cpp Vector.cpp Iterator.cpp -o my_program`
+Although it works by both methods , the choice depends on your design and style you prefer in working environment which makes ease for you.
+
 ---
 
 ## 💻 Usage Example
