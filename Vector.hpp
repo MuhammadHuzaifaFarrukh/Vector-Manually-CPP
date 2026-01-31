@@ -162,9 +162,9 @@ public:
         SIZE = 0;
     }
 
-    //We need to have both functions for at() and [] , const and non-const
-    //const allows the binding of const vector reference
-    //non-const allows that we can change the vector's value by at() or [] 
+    // We need to have both functions for at() and [] , const and non-const
+    // const allows the binding of const vector reference
+    // non-const allows that we can change the vector's value by at() or []
     T &at(int x)
     {
         if (x < 0 || x >= SIZE)
@@ -260,7 +260,7 @@ public:
 
     friend ostream &operator<<(ostream &out, const Vector &other)
     {
-        //Can use vector's display() function as well
+        // Can use vector's display() function as well
         for (int i = 0; i < other.SIZE; i++)
         {
             out << other.arr[i] << " ";
@@ -333,8 +333,8 @@ public:
             }
         }
     }
-    //To use std::algorithm sort you need :
-    //std::sort(&v1[0], &v1[0] + v1.size());    //Don't use v1.begin() or v1.end()
+    // To use std::algorithm sort you need :
+    // std::sort(&v1[0], &v1[0] + v1.size());    //Don't use v1.begin() or v1.end()
 
     int linearSearch(T target)
     {
@@ -407,7 +407,6 @@ public:
         T *end_ptr;
 
     public:
-    
         Iterator(T *p, T *first, T *last)
         {
             ptr = p;
@@ -432,7 +431,7 @@ public:
             }
             return *this;
         }
-        Iterator operator+(int n)
+        Iterator operator+(int n) const
         {
             if (ptr + n < begin_ptr || ptr + n > end_ptr)
             {
@@ -659,7 +658,7 @@ public:
         return Iterator(arr + start_ind, arr, arr + SIZE);
     }
 
-    //set(int , int ) and get(int) are already implemented above in the form of .at() and [] functions
+    // set(int , int ) and get(int) are already implemented above in the form of .at() and [] functions
     void set(int index, T val) // Like Insert but it overwrites , not shifts
     {
         if (index < 0 || index >= SIZE)
@@ -678,7 +677,7 @@ public:
         return arr[index];
     }
 
-    const T &get(int index) const //Allows to work with const vector also (or non-const if above is not present) , read only version
+    const T &get(int index) const // Allows to work with const vector also (or non-const if above is not present) , read only version
     {
         if (index < 0 || index >= SIZE)
         {
