@@ -58,11 +58,11 @@ public:
         }
     }
 
-    int size()
+    int size() const
     {
         return SIZE;
     }
-    int capacity()
+    int capacity() const
     {
         return CAP;
     }
@@ -162,6 +162,16 @@ public:
         SIZE = 0;
     }
 
+    //We need to have both functions for at() and [] , const and non-const
+    //const allows the binding of const vector reference
+    //non-const allows that we can change the vector's value by at() or [] 
+    T &at(int x)
+    {
+        if (x < 0 || x >= SIZE)
+            throw out_of_range("...");
+        return arr[x];
+    }
+
     const T &at(int x) const
     {
         if (x < 0 || x >= SIZE)
@@ -170,6 +180,12 @@ public:
         }
         return arr[x];
     }
+
+    T &operator[](int x)
+    {
+        return arr[x];
+    }
+
     const T &operator[](T x) const
     {
         return arr[x];
@@ -244,6 +260,7 @@ public:
 
     friend ostream &operator<<(ostream &out, const Vector &other)
     {
+        //Can use vector's display() function as well
         for (int i = 0; i < other.SIZE; i++)
         {
             out << other.arr[i] << " ";
@@ -276,7 +293,7 @@ public:
         other.CAP = temp_s;
     }
 
-    bool operator==(const Vector &other)
+    bool operator==(const Vector &other) const
     {
         if (this->SIZE != other.SIZE)
         {
@@ -293,7 +310,7 @@ public:
         return 1;
     }
 
-    bool operator!=(const Vector &other)
+    bool operator!=(const Vector &other) const
     {
         return !(*this == other);
     }
@@ -368,6 +385,14 @@ public:
         return -1;
     }
 
+    void display() const
+    {
+        for (int i = 0; i < SIZE; i++)
+        {
+            cout << arr[i] << " ";
+        }
+        cout << endl;
+    }
     ~Vector()
     {
         delete[] arr;
@@ -629,5 +654,33 @@ public:
         SIZE -= nums;
 
         return Iterator(arr + start_ind, arr, arr + SIZE);
+    }
+
+    //set(int , int ) and get(int) are already implemented above in the form of .at() and [] functions
+    void set(int index, T val) // Like Insert but it overwrites , not shifts
+    {
+        if (index < 0 || index >= SIZE)
+        {
+            throw out_of_range("Index Out of Range (Not Possible)\n");
+        }
+        arr[index] = val;
+    }
+
+    T &get(int index) // Works for non-const vector objects only , but can modify the value as we only want that
+    {
+        if (index < 0 || index >= SIZE)
+        {
+            throw out_of_range("Index Out of Range (Not Possible)\n");
+        }
+        return arr[index];
+    }
+
+    const T &get(int index) const //Allows to work with const vector also (or non-const if above is not present) , read only version
+    {
+        if (index < 0 || index >= SIZE)
+        {
+            throw out_of_range("Index Out of Range (Not Possible)\n");
+        }
+        return arr[index];
     }
 };
