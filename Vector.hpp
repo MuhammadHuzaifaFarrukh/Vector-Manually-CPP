@@ -333,6 +333,8 @@ public:
             }
         }
     }
+    //To use std::algorithm sort you need :
+    //std::sort(&v1[0], &v1[0] + v1.size());    //Don't use v1.begin() or v1.end()
 
     int linearSearch(T target)
     {
@@ -405,6 +407,7 @@ public:
         T *end_ptr;
 
     public:
+    
         Iterator(T *p, T *first, T *last)
         {
             ptr = p;
