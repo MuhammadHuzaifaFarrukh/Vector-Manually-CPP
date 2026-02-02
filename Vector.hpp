@@ -339,7 +339,6 @@ public:
     }
      
     
-
     void reverse_selectionSort()
     {
         for (int i = 0; i < SIZE - 1; i++)
@@ -361,13 +360,13 @@ public:
 
     void reverse() 
     {
-        if (currentSize <= 1)
+        if (SIZE <= 1)
         {
             return;
         }
 
         int start = 0;
-        int end = currentSize - 1;
+        int end = SIZE - 1;
 
         while (start < end) 
         {   
