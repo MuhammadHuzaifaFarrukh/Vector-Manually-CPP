@@ -371,7 +371,7 @@ public:
         while (start < end) 
         {   
             //std::swap(arr[start], arr[end]);
-            int temp = arr[start];
+            T temp = arr[start];
             arr[start] = arr[end];
             arr[end] = temp;
 
