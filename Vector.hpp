@@ -316,6 +316,7 @@ public:
         return !(*this == other);
     }
 
+    
     void selectionSort()
     {
         for (int i = 0; i < SIZE - 1; i++)
@@ -330,10 +331,56 @@ public:
             }
             if (minIdx != i)
             {
+                int temp = arr[i];
+                arr[i] = arr[minIdx];
+                arr[minIdx] = temp;
+            }
+        }
+    }
+     
+    
+
+    void reverse_selectionSort()
+    {
+        for (int i = 0; i < SIZE - 1; i++)
+        {
+            int minIdx = i;
+            for (int j = i + 1; j < SIZE; j++)
+            {
+                if (arr[j] > arr[minIdx])
+                {
+                    minIdx = j;
+                }
+            }
+            if (minIdx != i)
+            {
                 std::swap(arr[i], arr[minIdx]);
             }
         }
     }
+
+    void reverse() 
+    {
+        if (currentSize <= 1)
+        {
+            return;
+        }
+
+        int start = 0;
+        int end = currentSize - 1;
+
+        while (start < end) 
+        {   
+            //std::swap(arr[start], arr[end]);
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+
+            start++;
+            end--;
+        }
+    }
+
     // To use std::algorithm sort you need :
     // std::sort(&v1[0], &v1[0] + v1.size());    //Don't use v1.begin() or v1.end()
 
